@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf ./build && tsc",
-    "dev": "ts-node-dev --transpile-only --inspect -- ./src/"
+    "dev": "ts-node-dev --transpile-only --inspect --ignore-watch node_modules src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
