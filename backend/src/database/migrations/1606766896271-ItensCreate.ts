@@ -1,10 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-  TableIndex,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export default class ItensCreate1606766896271 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -30,10 +24,6 @@ export default class ItensCreate1606766896271 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'photo_id',
-            type: 'varchar',
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
@@ -46,28 +36,9 @@ export default class ItensCreate1606766896271 implements MigrationInterface {
         ],
       }),
     );
-    await queryRunner.createIndex(
-      'itens',
-      new TableIndex({
-        name: 'FK_ITENS_PHOTOS',
-        columnNames: ['photo_id'],
-      }),
-    );
-    await queryRunner.createForeignKey(
-      'itens',
-      new TableForeignKey({
-        name: 'FK_ITENS_PHOTOS',
-        columnNames: ['photo_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'photos',
-        onUpdate: 'CASCADE',
-      }),
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('itens', 'FK_ITENS_PHOTOS');
-    await queryRunner.dropIndex('itens', 'FK_ITENS_PHOTOS');
     await queryRunner.dropTable('itens');
   }
 }

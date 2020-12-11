@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Photo from './Photo';
 
 @Entity('itens')
 class Item {
@@ -20,8 +22,10 @@ class Item {
   @Column()
   sector: string;
 
-  @Column()
-  photo: string;
+  @OneToMany(() => Photo, item => item.item, {
+    eager: true,
+  })
+  photos: Photo[];
 
   @UpdateDateColumn()
   updated_at: Date;

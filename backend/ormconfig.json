@@ -1,13 +1,25 @@
-{
-  "type": "mysql",
-  "host": "localhost",
-  "port": 3306,
-  "username": "root",
-  "password": "",
-  "database": "db_lost_found",
-  "entities": ["./src/models/*.ts"],
-  "migrations": ["./src/database/migrations/*.ts"],
-  "cli": {
-    "migrationsDir": "./src/database/migrations"
+[
+  {
+    "name": "default",
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "db_lost_found",
+    "entities": ["./src/models/*.ts"],
+    "migrations": ["./src/database/migrations/*.ts"],
+    "cli": {
+      "migrationsDir": "./src/database/migrations"
+    }
+  },
+  {
+    "name": "controll-access",
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "db_controll_access"
   }
-}
+]

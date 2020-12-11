@@ -1,6 +1,11 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
-export default class PhotoCreate1606529765772 implements MigrationInterface {
+export default class PhotoCreate1606786896271 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -16,6 +21,10 @@ export default class PhotoCreate1606529765772 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'item_id',
+            type: 'varchar',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
@@ -28,9 +37,20 @@ export default class PhotoCreate1606529765772 implements MigrationInterface {
         ],
       }),
     );
+    await queryRunner.createForeignKey(
+      'photos',
+      new TableForeignKey({
+        name: 'FK_PHOTOS_ITENS',
+        columnNames: ['item_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'itens',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('photos', 'FK_PHOTOS_ITENS');
     await queryRunner.dropTable('photos');
   }
 }
